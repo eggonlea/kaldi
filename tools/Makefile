@@ -1,13 +1,13 @@
 # SHELL += -x
 
-CXX = g++
-CC = gcc         # used for sph2pipe
-# CXX = clang++  # Uncomment these lines
-# CC = clang     # to build with Clang.
+#CXX = g++
+#CC = gcc         # used for sph2pipe
+#CXX = clang++  # Uncomment these lines
+#CC = clang     # to build with Clang.
 
 # Note: OpenFst requires a relatively recent C++ compiler with C++11 support,
 # e.g. g++ >= 4.7, Apple clang >= 5.0 or LLVM clang >= 3.3.
-OPENFST_VERSION ?= 1.6.7
+OPENFST_VERSION ?= 1.6.9
 CUB_VERSION ?= 1.8.0
 
 # Default features configured for OpenFST; can be overridden in the make command line.
@@ -81,7 +81,7 @@ endif
 
 openfst-$(OPENFST_VERSION)/Makefile: openfst-$(OPENFST_VERSION) | check_required_programs
 	cd openfst-$(OPENFST_VERSION)/ && \
-	./configure --prefix=`pwd` $(OPENFST_CONFIGURE) CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS) $(openfst_add_CXXFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS="-ldl"
+	./configure --prefix=`pwd` $(HOST) $(OPENFST_CONFIGURE) CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS) $(openfst_add_CXXFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS="-ldl"
 
 
 openfst-$(OPENFST_VERSION): openfst-$(OPENFST_VERSION).tar.gz
@@ -96,7 +96,7 @@ sclite: sclite_compiled
 .PHONY: sclite_compiled
 sclite_compiled: sctk sctk_configured
 	cd sctk; \
-	$(MAKE) CC="$(CC)" CXX="$(CXX)" all && $(MAKE) install && $(MAKE) doc
+	$(MAKE) $(HOST) CC="$(CC)" CXX="$(CXX)" all && $(MAKE) install && $(MAKE) doc
 
 sctk_configured: sctk sctk/.configured
 
