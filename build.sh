@@ -26,7 +26,7 @@ ln -s openfst-${OPENFST_VERSION} openfst
 
 # Configure for Android
 cd src
-AR=aarch64-linux-android-ar AS=aarch64-linux-android-as CXX=aarch64-linux-android28-clang++ RANLIB=aarch64-linux-android-ranlib CXXFLAGS=HAVE_EXECINFO_H./configure --static --host=aarch64-linux-android --android-incdir=/home/li/Android/Sdk/ndk-bundle/sysroot/usr/include --mathlib=OPENBLAS --openblas-root=/home/li/vobs/OpenBLAS/out
+AR=aarch64-linux-android-ar AS=aarch64-linux-android-as CXX=aarch64-linux-android28-clang++ RANLIB=aarch64-linux-android-ranlib CXXFLAGS=HAVE_EXECINFO_H ./configure --static --host=aarch64-linux-android --android-incdir=/home/li/Android/Sdk/ndk-bundle/sysroot/usr/include --mathlib=OPENBLAS --openblas-root=/home/li/vobs/OpenBLAS/out
 
 # Compile
 sed -i -e 's/-DHAVE_EXECINFO_H=0//g' -e 's/-lpthread//g' -e 's/-g # -O0 -DKALDI_PARANOID/-O3 -DNDEBUG/g' kaldi.mk
